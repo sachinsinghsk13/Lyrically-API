@@ -18,6 +18,7 @@
   ],
   "author": "Sachin Singh, Yogita Negi",
   "license": "ISC",
+  "type": "commonjs",
   "bugs": {
     "url": "https://github.com/sachinsinghsk13/Lyrically-API/issues"
   },
@@ -28,10 +29,12 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^16.7.1",
     "cors": "^2.8.5",
+    "dateformat": "^4.5.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^4.1.0",
-    "mongoose": "^5.13.8"
+    "mongoose": "^5.13.8",
+    "winston": "^3.3.3"
   }
 }
