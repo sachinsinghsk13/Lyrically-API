@@ -4,6 +4,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
 import createModuleLogger from './utilities/logger'
+import AdminRoute from './routes/admin';
 const logger = createModuleLogger('LyricallyApp');
 const app = express();
 
@@ -12,6 +13,11 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded());
 
+app.get('fd',(req, res) => {
+
+})
+/* Mount Routes */
+app.use('/api', AdminRoute);
 
 const server = http.createServer(app);
 const SERVER_PORT = process.env.PORT;
