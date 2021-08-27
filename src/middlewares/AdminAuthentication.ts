@@ -3,14 +3,14 @@ import jwtTokenUtil from "../utilities/jwt-token-util";
 
 const AUTH_HEADER = 'Authorization';
 
-export default function (req: Request, res: Response, next: any) {
+export default function (req: Request & {user: any}, res: Response, next: any) {
     const authHeader = req.header(AUTH_HEADER);
     if (authHeader) {
         if (authHeader.startsWith('Bearer ')) {
             const token = authHeader.substr(7);
             const admin = jwtTokenUtil.authenticateAdmin(token);
             if (admin) {
-                req['user'] = admin;
+                req.user = admin;
                 next();
             } else {
                 res.status(401).json({message: `Authentication Failed. Token Expired or Malformed Token`});

@@ -14,7 +14,7 @@ class JwtTokenUtil {
 
     authenticateAdmin(token: string) {
         try {
-            return jsonwebtoken.verify(token, process.env.TOKEN_SECRETE);
+            return <string> jsonwebtoken.verify(token, process.env.TOKEN_SECRET);
         } catch (error) {
             return null;
         }
