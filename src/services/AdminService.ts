@@ -19,9 +19,6 @@ class AdminService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                let validationError = Object.keys(error).forEach(key => {
-                    response[key] = error[key].message;
-                });
                 throw new CustomError('Validation Error', 400, response);
             }
             throw new Error('Error while saving data');

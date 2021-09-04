@@ -37,8 +37,8 @@ server.on('error', (err) => {
     logger.error(err.message);
 })
 
-server.on('request', (e) => {
-    logger.info(`Request Received`);
+server.on('request', () => {
+    logger.info('Request Received.');
 })
 
 /* Start Server */
