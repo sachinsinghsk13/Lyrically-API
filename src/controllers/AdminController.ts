@@ -3,6 +3,7 @@ import AdminService from "../services/AdminService";
 import { CustomError } from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
 import * as yup from 'yup';
+import navigationModelService from "../services/web-ui/NavigationMenuService";
 const logger = createModuleLogger('AdminController');
 
 class AdminController {
@@ -22,23 +23,31 @@ class AdminController {
 
     async login(req: Request, res: Response) {
         try {
-            let credential = await adminLoginValidation.validate(req.body);
+            let credential = req.body;
             let token = await AdminService.login(credential);
             res.json(token);
         } catch (error) {
             if (error instanceof CustomError) {
                 res.status(error.httpStatusCode).json(error.response);
-            } else if (error.name && error.name == 'ValidationError') {
-                res.status(400).json(error).end();
             }
             else {
                 res.status(500).json({message: 'Can not process request now. please try after some time.'}).end();
             }
         }
     }
+
+    async adminWebMenus(req: Request, res: Response) {
+        try {
+            let menus = await navigationModelService.getMenus();
+            res.json({data: menus});
+        } catch (err) {
+            res.status(500).json({message: err.message});
+        }
+    }
+
+    async createWebMenu(req: Request, res: Response) {
+
+    }
 }
-const adminLoginValidation = yup.object().shape({
-    username: yup.string().required('username is required'),
-    password: yup.string().required('password is required')
-});
+
 export default new AdminController();

@@ -8,6 +8,15 @@ import createModuleLogger from './utilities/logger'
 import AdminRoute from './routes/admin';
 const logger = createModuleLogger('LyricallyApp');
 const app = express();
+import swaggerJsDoc from 'swagger-jsdoc';
+import swaggerUI from 'swagger-ui-express';
+import apiConfig from './api-doc-config';
+import expressJSDocSwagger from 'express-jsdoc-swagger';
+import path from 'path';
+
+app.use(cors());
+
+expressJSDocSwagger(app)(apiConfig);
 
 const mongodbConfig: ConnectOptions = {
     useUnifiedTopology: true,
