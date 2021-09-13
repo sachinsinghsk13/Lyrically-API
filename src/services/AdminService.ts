@@ -32,7 +32,8 @@ class AdminService {
                let payload = {
                    username: admin.username,
                    email: admin.email,
-                   name: admin.name
+                   name: admin.name,
+                   avtarImg: admin.avtarImg
                };
                 const token = jwtTokenUtil.createToken(payload);
                 return {token, user: payload};

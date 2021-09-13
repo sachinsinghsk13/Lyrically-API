@@ -31,7 +31,7 @@ class AdminController {
                 res.status(error.httpStatusCode).json(error.response);
             }
             else {
-                res.status(500).json({message: 'Can not process request now. please try after some time.'}).end();
+                res.status(500).json({ message: 'Can not process request now. please try after some time.' }).end();
             }
         }
     }
@@ -39,14 +39,20 @@ class AdminController {
     async adminWebMenus(req: Request, res: Response) {
         try {
             let menus = await navigationModelService.getMenus();
-            res.json({data: menus});
+            res.json({ data: menus });
         } catch (err) {
-            res.status(500).json({message: err.message});
+            res.status(500).json({ message: err.message });
         }
     }
 
     async createWebMenu(req: Request, res: Response) {
-
+        try {
+            const menu = req.body;
+            let result = await navigationModelService.addMenu(menu);
+            res.json({data: result});
+        } catch(err) {
+            res.status(500).json({message: err.message});
+        }
     }
 }
 

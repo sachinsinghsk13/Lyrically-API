@@ -31,4 +31,5 @@ AdminAPIs.get('/test', (req, res) => {
 })
 
 AdminAPIs.get('/webmenus', AdminController.adminWebMenus);
+AdminAPIs.post('/webmenus', adminRouteValidMW.addWebMenu, AdminController.createWebMenu);
 export default AdminRoute;

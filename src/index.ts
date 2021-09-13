@@ -30,7 +30,7 @@ connection.on('error', () => logger.error('An error occured in database'));
 connect(`mongodb://${process.env.DATABASE_HOST}/${process.env.DATABASE}`, mongodbConfig);
 
 /* Setup Third Party Middlewares */
-// app.use(cors);
+app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(express.json());
 app.use(express.urlencoded());
 
