@@ -10,7 +10,7 @@ const logger = createModuleLogger('LyricallyApp');
 const app = express();
 import swaggerJsDoc from 'swagger-jsdoc';
 import swaggerUI from 'swagger-ui-express';
-import apiConfig from './api-doc-config';
+import apiConfig from './apiDocConfig';
 import expressJSDocSwagger from 'express-jsdoc-swagger';
 import path from 'path';
 
