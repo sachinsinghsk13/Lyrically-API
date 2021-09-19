@@ -5,7 +5,7 @@ dotenv.config();
 import cors from 'cors';
 import { connect, connection, ConnectOptions } from 'mongoose';
 import createModuleLogger from './utilities/logger'
-import AdminRoute from './routes/admin';
+import AdminRoute from './routes/AdminRoute';
 const logger = createModuleLogger('LyricallyApp');
 const app = express();
 import swaggerJsDoc from 'swagger-jsdoc';

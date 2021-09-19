@@ -32,6 +32,10 @@ AdminAPIs.get('/test', (req, res) => {
 
 AdminAPIs.post('categories/create-catego', )
 
+// Routes for Web Menus
 AdminAPIs.get('/webmenus', AdminController.adminWebMenus);
+AdminAPIs.get('/webmenus/:menuId', AdminController.getMenu);
+AdminAPIs.put('/webmenus/:menuId', adminRouteValidMW.addWebMenu, AdminController.updateMenu);
+AdminAPIs.delete('/webmenus/:menuId', AdminController.deleteMenu);
 AdminAPIs.post('/webmenus', adminRouteValidMW.addWebMenu, AdminController.createWebMenu);
 export default AdminRoute;
