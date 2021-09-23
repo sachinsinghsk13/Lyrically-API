@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "api": "nodemon dist/index.js",
-    "compiler": "tsc --watch",
-    "start": "node dist/index.js"
+    "node-server": "nodemon dist/index.js",
+    "tsc-compiler": "tsc --watch",
+    "start": "npm-run-all -pln node-server tsc-compiler"
   },
   "repository": {
     "type": "git",

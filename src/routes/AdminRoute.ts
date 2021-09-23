@@ -30,10 +30,16 @@ AdminAuthRoute.post('/login',adminRouteValidMW.adminlogin, AdminController.login
 /* Admin Protected APIs Routes */
 AdminAPIs.get('/test', (req, res) => {
     res.json({msg: `Hello, ${req['user'].name}`});
-   res.end(); 
-})
+   res.end();
+});
 
+AdminAPIs.post('categories/create-catego', )
+
+// Routes for Web Menus
 AdminAPIs.get('/webmenus', AdminController.adminWebMenus);
+AdminAPIs.get('/webmenus/:menuId', AdminController.getMenu);
+AdminAPIs.put('/webmenus/:menuId', adminRouteValidMW.addWebMenu, AdminController.updateMenu);
+AdminAPIs.delete('/webmenus/:menuId', AdminController.deleteMenu);
 AdminAPIs.post('/webmenus', adminRouteValidMW.addWebMenu, AdminController.createWebMenu);
 
 AdminAPIs.post('/categories', CategoryController.Createcategory);

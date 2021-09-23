@@ -1,3 +1,4 @@
+import { ObjectId } from "bson";
 import NavigationMenuModel, { NavigationMenu } from "../../models/web-ui/NavigationMenu";
 
 class NavigationModelService {
@@ -9,6 +10,18 @@ class NavigationModelService {
     async addMenu(menu: NavigationMenu) {
         let savedMenu = await NavigationMenuModel.create(menu);
         return savedMenu;
+    }
+
+    async getMenu(menuId: string) {
+        return await NavigationMenuModel.findById(menuId).exec();
+    }
+
+    async updateMenu(menuId: string, menu: NavigationMenu) {
+       return await NavigationMenuModel.updateOne({_id: new ObjectId(menuId)}, menu).exec();
+    }
+
+    async deleteMenu(menuId: string) {
+        return await NavigationMenuModel.deleteOne({_id: new ObjectId(menuId)}).exec();
     }
 }
 
