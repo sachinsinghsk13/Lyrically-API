@@ -1,12 +1,15 @@
 import { Router } from 'express';
 import AdminController from '../controllers/AdminController';
+import CategoryController from '../controllers/CategoryController'
 import AdminAuthentication from '../middlewares/AdminAuthentication';
 import adminRouteValidMW from '../middlewares/validation/AdminRouteValidation';
+
 const AdminAPIs = Router();
 const AdminAuthRoute = Router();
 const AdminRoute = Router();
 AdminRoute.use('/admin', AdminAuthentication ,AdminAPIs);
 AdminRoute.use('/admin-auth', AdminAuthRoute);
+
 
 /**
  * Login Credentials
@@ -32,4 +35,7 @@ AdminAPIs.get('/test', (req, res) => {
 
 AdminAPIs.get('/webmenus', AdminController.adminWebMenus);
 AdminAPIs.post('/webmenus', adminRouteValidMW.addWebMenu, AdminController.createWebMenu);
+
+AdminAPIs.post('/categories', CategoryController.Createcategory);
+AdminAPIs.get('/categories', CategoryController.GetAllCategory);
 export default AdminRoute;
