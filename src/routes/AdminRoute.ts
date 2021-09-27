@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import AdminController from '../controllers/AdminController';
 import CategoryController from '../controllers/CategoryController'
+import ArtistController from '../controllers/ArtistController'
 import AdminAuthentication from '../middlewares/AdminAuthentication';
 import adminRouteValidMW from '../middlewares/validation/AdminRouteValidation';
 
@@ -42,6 +43,23 @@ AdminAPIs.put('/webmenus/:menuId', adminRouteValidMW.addWebMenu, AdminController
 AdminAPIs.delete('/webmenus/:menuId', AdminController.deleteMenu);
 AdminAPIs.post('/webmenus', adminRouteValidMW.addWebMenu, AdminController.createWebMenu);
 
-AdminAPIs.post('/categories', CategoryController.Createcategory);
+
+
+// ----------------------------CATEGORY-- API------------------------------------------------------
+
+AdminAPIs.post('/categories', adminRouteValidMW.addCategory,CategoryController.Createcategory);
 AdminAPIs.get('/categories', CategoryController.GetAllCategory);
+AdminAPIs.get('/categories', CategoryController.DeleteCategory);
+AdminAPIs.post('/categories', CategoryController.UpdateCategory);
+
+
+// -------------------------------------Artist-API-------------------------------------
+
+AdminAPIs.get('/Artist', ArtistController.GetAllArtist);
+AdminAPIs.put('/Artist', adminRouteValidMW.addArtist,ArtistController.CreateArtist);
+//-----------------------------------Album-API----------------------------------------------
+
+
+
+
 export default AdminRoute;

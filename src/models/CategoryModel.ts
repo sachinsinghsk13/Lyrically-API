@@ -3,21 +3,21 @@
 import { model, Schema } from "mongoose";
 import { string } from "yup/lib/locale";
 
-export interface Category{
-    category:String
+export interface Category {
+    title: String
     created: Date;
-    description:String;
+    description: String;
 }
 
 const CategorySchema = new Schema({
-    category: {
+    title: {
         type: String,
-        required: true,
-        unique: true
+        require: true,
+
     },
     description: {
         type: String,
-        require: true,
+        require: false,
     },
     created: {
         type: Date,
@@ -26,6 +26,6 @@ const CategorySchema = new Schema({
 
 });
 
-const CategoryModel=model<Category>('Category', CategorySchema);
+const CategoryModel = model<Category>('Category', CategorySchema);
 
 export { CategoryModel };
