@@ -13,6 +13,7 @@ import swaggerUI from 'swagger-ui-express';
 import apiConfig from './apiDocConfig';
 import expressJSDocSwagger from 'express-jsdoc-swagger';
 import path from 'path';
+import RequestLogger from './utilities/request-logger';
 
 app.use(cors());
 
@@ -33,6 +34,7 @@ connect(`mongodb://${process.env.DATABASE_HOST}/${process.env.DATABASE}`, mongod
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(express.json());
 app.use(express.urlencoded());
+app.use(RequestLogger());
 
 /* Mount Routes */
 app.use('/api', AdminRoute);
@@ -44,10 +46,6 @@ const SERVER_PORT = process.env.PORT;
 /*  Server Events */
 server.on('error', (err) => {
     logger.error(err.message);
-})
-
-server.on('request', () => {
-    logger.info('Request Received.');
 })
 
 /* Start Server */

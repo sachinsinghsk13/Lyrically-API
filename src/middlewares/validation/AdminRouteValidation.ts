@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import * as Yup from 'yup';
+
 /*  Yup Schemeas */
 const adminRouteValidations = {
     adminLogin: Yup.object().shape({
@@ -16,7 +17,7 @@ const adminRouteValidations = {
             title: Yup.string().required('Menu title is required'),
             path: Yup.string().required('Path is requied for submenus'),
             icon: Yup.string().optional(),
-            order: Yup.number().required()
+            order: Yup.number().optional()
         }))
     })
 }
@@ -41,6 +42,5 @@ class AdminRouteValidationMiddlewares {
         }
     }
 }
-
 const adminRouteValidMW = new AdminRouteValidationMiddlewares();
 export default adminRouteValidMW;
