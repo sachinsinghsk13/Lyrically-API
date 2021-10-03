@@ -7,6 +7,14 @@ const adminRouteValidations = {
         username: Yup.string().required('username is required'),
         password: Yup.string().required('password is required')
     }),
+    addCategory: Yup.object().shape({
+        title: Yup.string().required('Title is required'),
+        description: Yup.string().optional()
+    }),
+    addArtist: Yup.object().shape({
+        name:Yup.string().required('name is required'),
+
+    }),
     addWebMenu: Yup.object().shape({
         title: Yup.string().required('Menu title is required'),
         path: Yup.string().optional(),
@@ -41,6 +49,26 @@ class AdminRouteValidationMiddlewares {
             res.status(400).json(err).end();
         }
     }
+
+    async addCategory(req: Request, res: Response, next: any) {
+        try {
+            await adminRouteValidations.addCategory.validate(req.body);
+            next();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json(err).end();
+        }
+    }
+    async addArtist(req: Request, res: Response, next: any) {
+        try {
+            await adminRouteValidations.addArtist.validate(req.body);
+            next();
+        } catch (err) {
+            console.log(err);
+            res.status(400).json(err).end();
+        }
+    }
+    
 }
 const adminRouteValidMW = new AdminRouteValidationMiddlewares();
 export default adminRouteValidMW;
