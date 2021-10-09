@@ -83,6 +83,7 @@ class AdminController {
         try {
             const menuId = req.params.menuId;
             let result = await navigationModelService.deleteMenu(menuId);
+            logger.info(result);
             res.json({message: 'Delete Successfull'});
         } catch (error) {
             res.status(500).json({message: error.message});

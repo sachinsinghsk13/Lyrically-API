@@ -8,12 +8,12 @@ const logger = createModuleLogger('categoryController');
 
 //..................................Add Category..................................................//
 
-class CategoryController{
+class CategoryController {
 
     async Createcategory(req: Request, res: Response) {
         try {
-            let category= req.body;
-             category = await CategoryService.CreateCategoryService(category);
+            let category = req.body;
+            category = await CategoryService.CreateCategoryService(category);
             res.json(category);
         } catch (error) {
             if (error instanceof CustomError) {
@@ -27,7 +27,7 @@ class CategoryController{
         logger.info('Error', err);
 
     }
-// --------------------------------------get all category----------------------------------------
+    // --------------------------------------get all category----------------------------------------
     async GetAllCategory(req: Request, res: Response) {
         try {
             let AllCategory = await CategoryService.GetAllCategoryService();
@@ -47,9 +47,9 @@ class CategoryController{
             res.status(500).json({ message: err.message });
         }
     }
-// ------------------------------update throw id--------------------------------------------------
+    // ------------------------------update throw id--------------------------------------------------
 
- async UpdateCategory(req: Request, res: Response) {
+    async UpdateCategory(req: Request, res: Response) {
         try {
             let id = (req.params.categoryId);
             let { titile, descriprtion } = req.body;

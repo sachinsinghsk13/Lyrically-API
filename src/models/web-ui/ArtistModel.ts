@@ -21,9 +21,6 @@ const ArtistSchema = new Schema({
         type: String,
         require: false,
     },
-   
-  
-
 });
 
 const ArtistModel = model<Artist>('artist', ArtistSchema);

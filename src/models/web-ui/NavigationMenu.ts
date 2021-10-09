@@ -7,7 +7,7 @@ export interface NavigationSubmenu extends Document {
     order: number;
 }
 
-export interface NavigationMenu extends Document{
+export interface NavigationMenu extends Document {
     title: string;
     path: string;
     icon: string;
