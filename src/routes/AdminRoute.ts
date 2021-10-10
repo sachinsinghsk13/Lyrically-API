@@ -22,10 +22,10 @@ router.post('/webmenus', AdminAuthentication, adminRouteValidMW.addWebMenu, WebM
 
 // ----------------------------CATEGORY-- API------------------------------------------------------
 
-router.post('/categories', AdminAuthentication, adminRouteValidMW.addCategory,CategoryController.Createcategory);
-router.get('/categories', CategoryController.GetAllCategory);
-router.get('/categories', CategoryController.DeleteCategory);
-router.post('/categories', AdminAuthentication, CategoryController.UpdateCategory);
+router.post('/categories', AdminAuthentication, adminRouteValidMW.addCategory,CategoryController.createCategory);
+router.get('/categories', CategoryController.getAllCategory);
+router.get('/categories', CategoryController.deleteCategory);
+router.post('/categories', AdminAuthentication, CategoryController.updateCategory);
 
 
 // -------------------------------------Artist-API-------------------------------------

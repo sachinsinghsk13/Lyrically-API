@@ -1,7 +1,7 @@
 import { Query } from "mongoose";
-import { Category, CategoryModel } from "../../models/CategoryModel";
-import { CustomError } from "../../utilities/custom-error";
-import createModuleLogger from "../../utilities/logger";
+import { Category, CategoryModel } from "../models/CategoryModel";
+import { CustomError } from "../utilities/custom-error";
+import createModuleLogger from "../utilities/logger";
 
 
 class CategoryService {

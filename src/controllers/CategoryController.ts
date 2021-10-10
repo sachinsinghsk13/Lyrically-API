@@ -1,16 +1,14 @@
 import { Request, Response } from "express";
-import CategoryService from "../services/web-ui/CategoryService";
+import CategoryService from "../services/CategoryService";
 import { CustomError } from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
-import * as yup from 'yup';
-import navigationModelService from "../services/web-ui/NavigationMenuService";
-const logger = createModuleLogger('categoryController');
+const logger = createModuleLogger('CategoryController');
 
 //..................................Add Category..................................................//
 
 class CategoryController {
 
-    async Createcategory(req: Request, res: Response) {
+    async createCategory(req: Request, res: Response) {
         try {
             let category = req.body;
             category = await CategoryService.CreateCategoryService(category);
@@ -28,7 +26,7 @@ class CategoryController {
 
     }
     // --------------------------------------get all category----------------------------------------
-    async GetAllCategory(req: Request, res: Response) {
+    async getAllCategory(req: Request, res: Response) {
         try {
             let AllCategory = await CategoryService.GetAllCategoryService();
             res.json({ data: AllCategory });
@@ -37,7 +35,7 @@ class CategoryController {
         }
     }
     // ------------------------------------Delete category throw id--------------------------
-    async DeleteCategory(req: Request, res: Response) {
+    async deleteCategory(req: Request, res: Response) {
         try {
             let id = (req.params.categoryId);
             let query = { '_id': id };
@@ -49,7 +47,7 @@ class CategoryController {
     }
     // ------------------------------update throw id--------------------------------------------------
 
-    async UpdateCategory(req: Request, res: Response) {
+    async updateCategory(req: Request, res: Response) {
         try {
             let id = (req.params.categoryId);
             let { titile, descriprtion } = req.body;

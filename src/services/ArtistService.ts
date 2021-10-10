@@ -1,13 +1,13 @@
-import { Query } from "mongoose";
-import { Artist, ArtistModel } from "../../models/web-ui/ArtistModel";
-import { CustomError } from "../../utilities/custom-error";
-import createModuleLogger from "../../utilities/logger";
+import { Artist, ArtistModel } from "../models/ArtistModel";
+import { CustomError } from "../utilities/custom-error";
+import createModuleLogger from "../utilities/logger";
+const logger = createModuleLogger('ArtistService');
 
-class ArtistService{
-    async createArtist(Artist:Artist) {
+class ArtistService {
+    async createArtist(artist: Artist) {
         try {
-          
-            let doc = new ArtistModel(Artist);
+
+            let doc = new ArtistModel(artist);
             doc = await doc.save();
             return doc;
         } catch (err) {
@@ -21,10 +21,7 @@ class ArtistService{
         }
     }
 
-
-
-
-    async GetAllArtistService() {
+    async getAllArtists() {
         try {
             let doc = ArtistModel.find().exec()
 
@@ -36,10 +33,10 @@ class ArtistService{
                 let response: any = {};
                 throw new CustomError('Validation Error', 400, response);
             }
-            throw new Error('Error while saving category');
+            throw new Error('Error while saving Artist');
         }
     }
-    async UpdateArtistService (query) {
+    async updateArtist(query) {
         try {
             let doc = ArtistModel.updateOne(query).exec
             return doc;

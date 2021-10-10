@@ -1,5 +1,5 @@
 import { ObjectId } from "bson";
-import NavigationMenuModel, { NavigationMenu } from "../../models/web-ui/NavigationMenu";
+import NavigationMenuModel, { NavigationMenu } from "../models/NavigationMenu";
 
 class NavigationModelService {
     async getMenus() {

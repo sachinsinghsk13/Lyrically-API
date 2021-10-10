@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import navigationModelService from "../services/web-ui/NavigationMenuService";
+import navigationModelService from "../services/NavigationMenuService";
 import createModuleLogger from "../utilities/logger";
 const logger = createModuleLogger('WebMenuController');
 
