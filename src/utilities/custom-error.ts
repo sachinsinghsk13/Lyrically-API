@@ -1,9 +1,7 @@
-export class CustomError extends Error {
-    constructor(message: string, public httpStatusCode: number, public response: any ) {
+class CustomException extends Error {
+    constructor(message?: string, public httpStatusCode: number = 500,public errorData?: any) {
         super(message);
     }
-
-    toString() : string {
-        return `Message: ${this.message}, Http Status: ${this.httpStatusCode}`;
-    }
 }
+
+export default CustomException;

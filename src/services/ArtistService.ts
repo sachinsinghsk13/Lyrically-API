@@ -1,5 +1,5 @@
 import { Artist, ArtistModel } from "../models/ArtistModel";
-import { CustomError } from "../utilities/custom-error";
+import CustomException from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
 const logger = createModuleLogger('ArtistService');
 
@@ -15,7 +15,7 @@ class ArtistService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving data');
         }
@@ -31,7 +31,7 @@ class ArtistService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving Artist');
         }
@@ -40,12 +40,11 @@ class ArtistService {
         try {
             let doc = ArtistModel.updateOne(query).exec
             return doc;
-
         } catch (err) {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving category');
         }

@@ -1,5 +1,5 @@
 import { Admin, AdminModel } from "../models/AdminModel";
-import { CustomError } from "../utilities/custom-error";
+import CustomException from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
 import * as bcryptjs from 'bcryptjs';
 import { Credential } from "../utilities/api-models/credential";
@@ -19,7 +19,7 @@ class AdminService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving data');
         }
@@ -38,10 +38,10 @@ class AdminService {
                 const token = jwtTokenUtil.createToken(payload);
                 return {token, user: payload};
            } else {
-               throw new CustomError('Wrong Password', 200, {message: 'Password Incorrect'});
+               throw new CustomException('Wrong Password', 200, {message: 'Password Incorrect'});
            }
         } else {
-            throw new CustomError('username not found', 200, {message: 'Username not found.'});
+            throw new CustomException('username not found', 200, {message: 'Username not found.'});
         }
     }
 

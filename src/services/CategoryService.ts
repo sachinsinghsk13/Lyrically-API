@@ -1,26 +1,24 @@
-import { Query } from "mongoose";
+import { Error as MongoError } from "mongoose";
 import { Category, CategoryModel } from "../models/CategoryModel";
-import { CustomError } from "../utilities/custom-error";
+import CustomException from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
+import handleMongoDBException from "../utilities/mongo-error-handler";
 
 
 class CategoryService {
-    async CreateCategoryService(Category: Category) {
+    async createCategory(category: Category) {
         try {
-            let doc = new CategoryModel(Category);
+            let doc = new CategoryModel(category);
             doc = await doc.save();
             return doc;
-        } catch (err) {
-            // its a validation error
-            if (err.errors) {
-                let error = err.errors;
-                let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+        } catch (error) {
+            if (error.name) {
+                handleMongoDBException(error);
             }
-            throw new Error('Error while saving category');
+            throw error;
         }
     }
-    async GetAllCategoryService () {
+    async getAllCategories() {
         try {
             let doc = CategoryModel.find().exec()
 
@@ -30,13 +28,20 @@ class CategoryService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving category');
         }
     }
-
-    async DeleteCategoryService (query) {
+    async getCategory(id: string) {
+        try {
+            let doc = await CategoryModel.findById(id);
+            return doc;
+        } catch (error) {
+            
+        }
+    }
+    async deleteCategory(query) {
         try {
             let doc = CategoryModel.deleteOne(query).exec
             return doc;
@@ -45,13 +50,13 @@ class CategoryService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving category');
         }
     }
 
-    async UpdateCategoryService (query) {
+    async updateCategory(query) {
         try {
             let doc = CategoryModel.updateOne(query).exec
             return doc;
@@ -60,19 +65,11 @@ class CategoryService {
             if (err.errors) {
                 let error = err.errors;
                 let response: any = {};
-                throw new CustomError('Validation Error', 400, response);
+                throw new CustomException('Validation Error', 400, response);
             }
             throw new Error('Error while saving category');
         }
     }
-
-
-
-
-
-
-
-
 
 }
 export default new CategoryService();

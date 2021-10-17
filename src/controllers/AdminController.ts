@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import AdminService from "../services/AdminService";
-import { CustomError } from "../utilities/custom-error";
+import API from "../utilities/api-response";
+import CustomException from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
 const logger = createModuleLogger('AdminController');
 
@@ -9,28 +10,26 @@ class AdminController {
         try {
             let admin = req.body;
             admin = await AdminService.createAdmin(admin);
-            res.json({ message: 'Registration Successful', id: admin._id });
+            API.success()
+            .attachData({userId: admin._id})
+            .setMessage('Registration Successfull')
+            .send(res);
         } catch (error) {
-            if (error instanceof CustomError) {
-                res.status(error.httpStatusCode).json(error.response).end();
-            } else {
-                res.status(500).json(error).end();
-            }
+            logger.error(error);
+            API.error(error).send(res);
         }
     }
 
     async login(req: Request, res: Response) {
         try {
             let credential = req.body;
-            let token = await AdminService.login(credential);
-            res.json(token);
+            let loginRespnse = await AdminService.login(credential);
+            API.success()
+            .attachData(loginRespnse)
+            .setMessage('Login Successfull')
+            .send(res);
         } catch (error) {
-            if (error instanceof CustomError) {
-                res.status(error.httpStatusCode).json(error.response);
-            }
-            else {
-                res.status(500).json({ message: 'Can not process request now. please try after some time.' }).end();
-            }
+            API.error(error).send(res);
         }
     }
 

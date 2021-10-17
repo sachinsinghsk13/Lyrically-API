@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import navigationModelService from "../services/NavigationMenuService";
+import API from "../utilities/api-response";
 import createModuleLogger from "../utilities/logger";
 const logger = createModuleLogger('WebMenuController');
 
@@ -7,9 +8,13 @@ class WebMenuController {
     async adminWebMenus(req: Request, res: Response) {
         try {
             let menus = await navigationModelService.getMenus();
-            res.json(menus);
+            API.success()
+            .fetched('WebMenu')
+            .attachData(menus)
+            .send(res);
         } catch (err) {
-            res.status(500).json({ message: err.message });
+            logger.error(err);
+            API.error(err).send(res);
         }
     }
 
@@ -17,9 +22,11 @@ class WebMenuController {
         try {
             const menu = req.body;
             let result = await navigationModelService.addMenu(menu);
-            res.status(201).links({location: `${req.path}/${result._id}`}).end();
+            API.success()
+            .created(`${req.path}/${result._id}`, 'Webmenu')
+            .send(res);
         } catch(err) {
-            res.status(500).json({message: err.message});
+            API.error(err).send(res);
         }
     }
 

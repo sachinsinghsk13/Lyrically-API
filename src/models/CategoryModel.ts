@@ -1,5 +1,3 @@
-
-
 import { Document, model, Schema } from "mongoose";
 
 export interface Category extends Document {
@@ -11,8 +9,9 @@ export interface Category extends Document {
 const CategorySchema = new Schema<Category>({
     title: {
         type: String,
-        require: true,
-
+        required: true,
+        unique: true,
+        index: true
     },
     description: {
         type: String,

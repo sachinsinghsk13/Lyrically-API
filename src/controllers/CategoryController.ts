@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import CategoryService from "../services/CategoryService";
-import { CustomError } from "../utilities/custom-error";
+import API from "../utilities/api-response";
+import CustomException from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
 const logger = createModuleLogger('CategoryController');
 
@@ -11,14 +12,12 @@ class CategoryController {
     async createCategory(req: Request, res: Response) {
         try {
             let category = req.body;
-            category = await CategoryService.CreateCategoryService(category);
-            res.json(category);
+            category = await CategoryService.createCategory(category);
+            API.success()
+            .created(`${req.path}/${category._id}`, 'Music Category')
+            .send(res);
         } catch (error) {
-            if (error instanceof CustomError) {
-                res.status(error.httpStatusCode).json(error.response).end();
-            } else {
-                res.status(500).json(error).end();
-            }
+            API.error(error).send(res);
         }
 
     } catch(err) {
@@ -28,18 +27,27 @@ class CategoryController {
     // --------------------------------------get all category----------------------------------------
     async getAllCategory(req: Request, res: Response) {
         try {
-            let AllCategory = await CategoryService.GetAllCategoryService();
-            res.json({ data: AllCategory });
+            let allCategories = await CategoryService.getAllCategories();
+            res.json({ data: allCategories });
         } catch (err) {
             res.status(500).json({ message: err.message });
         }
     }
+    // --------------------------------------get all category by id----------------------------------------
+    async getCategoryById(req: Request, res: Response) {
+        try {
+            // let category = await CategoryService.getCategory();
+        } catch (error) {
+            
+        }
+    }
+
     // ------------------------------------Delete category throw id--------------------------
     async deleteCategory(req: Request, res: Response) {
         try {
-            let id = (req.params.categoryId);
+            let id = req.params.id;
             let query = { '_id': id };
-            let DeleteCategory = await CategoryService.DeleteCategoryService(query);
+            let DeleteCategory = await CategoryService.deleteCategory(query);
             res.json({ data: query });
         } catch (err) {
             res.status(500).json({ message: err.message });
@@ -52,7 +60,7 @@ class CategoryController {
             let id = (req.params.categoryId);
             let { titile, descriprtion } = req.body;
             let query = { '_id': id };
-            let updateCategory = await CategoryService.UpdateCategoryService(query);
+            let updateCategory = await CategoryService.updateCategory(query);
             res.json({ data: query });
         } catch (err) {
             res.status(500).json({ message: err.message });
