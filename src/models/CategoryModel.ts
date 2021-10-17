@@ -1,19 +1,17 @@
+import { Document, model, Schema } from "mongoose";
 
-
-import { model, Schema } from "mongoose";
-import { string } from "yup/lib/locale";
-
-export interface Category {
+export interface Category extends Document {
     title: String
     created: Date;
     description: String;
 }
 
-const CategorySchema = new Schema({
+const CategorySchema = new Schema<Category>({
     title: {
         type: String,
-        require: true,
-
+        required: true,
+        unique: true,
+        index: true
     },
     description: {
         type: String,

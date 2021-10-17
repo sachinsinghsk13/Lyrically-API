@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 import { string } from "yup/lib/locale";
 
-export interface Admin {
+export interface Admin extends Document {
     name: string;
     username: string;
     email: string;
@@ -22,3 +22,4 @@ const AdminSchema = new Schema<Admin>({
 const AdminModel = model<Admin>('Admin', AdminSchema);
 
 export { AdminModel };
+

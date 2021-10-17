@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import ArtistService from "../services/web-ui/ArtistService";
-import { CustomError } from "../utilities/custom-error";
+import ArtistService from "../services/ArtistService";
+import API from "../utilities/api-response";
+import CustomException from "../utilities/custom-error";
 import createModuleLogger from "../utilities/logger";
 
 
@@ -8,26 +9,27 @@ const logger = createModuleLogger('ArtishController');
 
 class ArtistController {
 
-    async CreateArtist(req: Request, res: Response) {
+    async createArtist(req: Request, res: Response) {
         try {
-            let Artist = req.body;
-            Artist = await ArtistService.createArtist(Artist);
-            res.json({ message: "sucessfull  create" });
+            let artist = req.body;
+            artist = await ArtistService.createArtist(artist);
+           API.success()
+           .created(`${req.path}/${artist._id}`, 'Artist')
+           .send(res);
         } catch (error) {
-            if (error instanceof CustomError) {
-                res.status(error.httpStatusCode).json(error.response).end();
-            } else {
-                res.status(500).json(error).end();
-            }
+           API.error(error).send(res);
         }
     }
 
-    async GetAllArtist(req: Request, res: Response) {
+    async getAllArtists(req: Request, res: Response) {
         try {
-            let AllArtist = await ArtistService.GetAllArtistService();
-            res.json({ data: AllArtist });
+            let artists = await ArtistService.getAllArtists();
+            API.success()
+            .fetched('Artist')
+            .attachData(artists)
+            .send(res);
         } catch (err) {
-            res.status(500).json({ message: err.message });
+            API.error(err).send(res);
         }
     }
     
